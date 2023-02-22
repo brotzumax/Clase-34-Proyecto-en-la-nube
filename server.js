@@ -235,10 +235,12 @@ io.on('connection', function (socket) {
 });
 
 //Escucha del servidor
+const PORT = process.env.PORT || 8080;
+
 if (args.modo === "FORK") {
     console.log("Servidor modo fork");
-    httpServer.listen(args.puerto, () => {
-        console.log(`Servidor escuchando en puerto ${args.puerto}`);
+    httpServer.listen(PORT, () => {
+        console.log(`Servidor escuchando en puerto ${PORT}`);
     });
 } else if (args.modo === "CLUSTER") {
     if (cluster.isMaster) {
@@ -253,8 +255,8 @@ if (args.modo === "FORK") {
             console.log(`Worker ${worker.process.pid} died`);
         });
     } else {
-        httpServer.listen(args.puerto, () => {
-            console.log(`Servidor escuchando en puerto ${args.puerto}`);
+        httpServer.listen(PORT, () => {
+            console.log(`Servidor escuchando en puerto ${PORT}`);
         });
         console.log(`Worker ${process.pid} started`);
     }
